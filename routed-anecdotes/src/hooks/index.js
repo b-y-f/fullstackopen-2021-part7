@@ -1,20 +1,21 @@
 import { useState } from 'react'
 
-export const useField = (type) => {
-  const [value, setValue] = useState()
+export const useField = (name) => {
+  const [value, setValue] = useState('')
 
   const onChange = (event) => {
+    console.log(value)
     setValue(event.target.value)
   }
 
   return {
-    type,
+    name,
     value,
     onChange
   }
 }
 
 // modules can have several named exports
-export const useAnotherHook = () => {
-  // ...
-}
+// export const useAnotherHook = () => {
+//   // ...
+// }
