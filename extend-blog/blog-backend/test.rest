@@ -1,0 +1,65 @@
+DELETE http://localhost:3003/api/blogs/6108f80e62cef70b9cb21461
+Content-Type: application/json
+
+{
+    "title":"baababababababab",
+    "author":"bill",
+    "url":"www.google.com",
+    "likes":2
+}
+
+### Create new blogs without token
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+
+{
+    "title":"Admin_Annocement",
+    "author":"ad",
+    "url":"www.admin.com",
+    "userId" :"610a181777927407dc267103"
+}
+
+### Create new users
+POST http://localhost:3003/api/users
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "name" : "bill",
+    "password" : "admin123"
+}
+
+### User login fail
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username" : "bbbbbb",
+    "password" : "hello"
+}
+
+### User login succuess
+POST http://localhost:3003/api/login
+Content-Type: application/json
+
+{
+    "username" : "admin",
+    "password" : "admin123"
+}
+
+### Create new blogs with token
+POST http://localhost:3003/api/blogs
+Content-Type: application/json
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MTBhMTgxNzc3OTI3NDA3ZGMyNjcxMDMiLCJpYXQiOjE2MjgwNjExNjEsImV4cCI6MTYyODA2NDc2MX0.ryLo6d8mU8QFV-ScZgccJDmzbY0710WpQ4qTVIcHOEc
+
+{
+    "title":"BBBBBBBBBBBBBBBBBA",
+    "author":"mid",
+    "url":"10s.com",
+    "userId" :"610a181777927407dc267103"
+}
+
+
+### delete post without token
+DELETE http://localhost:3003/api/blogs/610a1c76670aa92b28bfbe35
+Authorization: bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWQiOiI2MTBhMTgxNzc3OTI3NDA3ZGMyNjcxMDMiLCJpYXQiOjE2MjgwNjExNjEsImV4cCI6MTYyODA2NDc2MX0.ryLo6d8mU8QFV-ScZgccJDmzbY0710WpQ4qTVIcHOEc
