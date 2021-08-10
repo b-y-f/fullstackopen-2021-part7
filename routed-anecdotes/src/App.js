@@ -67,6 +67,12 @@ const Footer = () => (
   </div>
 )
 
+const Notification =({message}) =>(
+  <>
+    <div>{message}</div>
+  </>
+)
+
 const CreateNew = (props) => {
   const [content, setContent] = useState('')
   const [author, setAuthor] = useState('')
@@ -129,6 +135,8 @@ const App = () => {
   const addNew = (anecdote) => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
+    setNotification(`added ${anecdote.content}`)
+    setTimeout(()=>setNotification(''),5000)
   }
 
   const anecdoteById = (id) =>
@@ -156,6 +164,7 @@ const App = () => {
       
         <h1>Software anecdotes</h1>
         <Menu />
+        <Notification message={notification} />
         <Switch>
 
           <Route path="/anecdotes/:id">
@@ -167,7 +176,10 @@ const App = () => {
           </Route>
 
           <Route path="/add-new">
-            <CreateNew addNew={addNew} />
+            {notification === ''
+            ?<CreateNew addNew={addNew} />
+            :<Redirect to="/" />}
+            
           </Route>
 
           <Route path="/">
