@@ -1,4 +1,7 @@
+/* eslint-disable react/no-unescaped-entities */
 import React, { useState } from 'react'
+import  { useField } from './hooks'
+
 import {
   Switch,
   Route,
@@ -6,7 +9,7 @@ import {
   Redirect,
   useRouteMatch,
   useHistory,
-} from "react-router-dom"
+} from 'react-router-dom'
 
 const Menu = () => {
   const padding = {
@@ -16,7 +19,7 @@ const Menu = () => {
     <>
       <Link style={padding} to="/">anecdotes</Link>
       <Link style={padding} to="/add-new">create new</Link>
-      <Link style={padding} to="/about">about</Link> 
+      <Link style={padding} to="/about">about</Link>
     </>
   )
 }
@@ -26,21 +29,21 @@ const AnecdoteList = ({ anecdotes }) => (
   <div>
     <h2>Anecdotes</h2>
     <ul>
-      {anecdotes.map(anecdote => 
-      <li key={anecdote.id} >
-        <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
-      </li>)}
+      {anecdotes.map(anecdote =>
+        <li key={anecdote.id} >
+          <Link to={`/anecdotes/${anecdote.id}`}>{anecdote.content}</Link>
+        </li>)}
     </ul>
   </div>
 )
 
 
-const Anecdote = ({anecdote}) => (
+const Anecdote = ({ anecdote }) => (
   <div>
     <h2>{anecdote.content}</h2>
     <div>has {anecdote.votes} votes</div>
     <br/>
-    <div>for more info see: <a href={anecdote.info}>{anecdote.info}</a></div> 
+    <div>for more info see: <a href={anecdote.info}>{anecdote.info}</a></div>
     <br/>
   </div>
 )
@@ -67,7 +70,7 @@ const Footer = () => (
   </div>
 )
 
-const Notification =({message}) =>(
+const Notification =({ message }) => (
   <>
     <div>{message}</div>
   </>
@@ -103,7 +106,7 @@ const CreateNew = (props) => {
         </div>
         <div>
           url for more info
-          <input name='info' value={info} onChange={(e)=> setInfo(e.target.value)} />
+          <input name='info' value={info} onChange={(e) => setInfo(e.target.value)} />
         </div>
         <button>create</button>
       </form>
@@ -136,7 +139,7 @@ const App = () => {
     anecdote.id = (Math.random() * 10000).toFixed(0)
     setAnecdotes(anecdotes.concat(anecdote))
     setNotification(`added ${anecdote.content}`)
-    setTimeout(()=>setNotification(''),5000)
+    setTimeout(() => setNotification(''),5000)
   }
 
   const anecdoteById = (id) =>
@@ -154,43 +157,43 @@ const App = () => {
   }
 
   const match = useRouteMatch('/anecdotes/:id')
-  const anecdote = match 
+  const anecdote = match
     ? anecdotes.find(a => Number(a.id) === Number(match.params.id))
     : null
 
 
   return (
     <div>
-      
-        <h1>Software anecdotes</h1>
-        <Menu />
-        <Notification message={notification} />
-        <Switch>
 
-          <Route path="/anecdotes/:id">
-            <Anecdote anecdote={anecdote} />
-          </Route>
+      <h1>Software anecdotes</h1>
+      <Menu />
+      <Notification message={notification} />
+      <Switch>
 
-          <Route path="/about">
-            <About />
-          </Route>
+        <Route path="/anecdotes/:id">
+          <Anecdote anecdote={anecdote} />
+        </Route>
 
-          <Route path="/add-new">
-            {notification === ''
+        <Route path="/about">
+          <About />
+        </Route>
+
+        <Route path="/add-new">
+          {notification === ''
             ?<CreateNew addNew={addNew} />
             :<Redirect to="/" />}
-            
-          </Route>
 
-          <Route path="/">
-            <AnecdoteList anecdotes={anecdotes} />
-          </Route>
-        </Switch>
+        </Route>
 
-        <Footer />
-      
+        <Route path="/">
+          <AnecdoteList anecdotes={anecdotes} />
+        </Route>
+      </Switch>
+
+      <Footer />
+
     </div>
   )
 }
 
-export default App;
+export default App
